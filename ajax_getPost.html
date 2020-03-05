@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ajax get test</title>
+</head>
+<body>
+    <div id="app">
+        <button type="button" onclick="makeRequest()">点击发送ajax请求获取数据</button>
+        <p>get方法获取数据显示:</p>
+        <div id="get_content">
+
+        </div>
+        <button type="button" onclick="makePostRequest()">点击发送ajax请求获取数据</button>
+        <p>post方法获取数据显示:</p>
+        <div id="post_content">
+
+        </div>
+        
+    </div>
+</body>
+</html>
+<!-- <script src="./api/ajax.js"></script> -->
+<script type="text/javascript">
+
+function makeRequest(){
+    var xmlhttp;
+    if(window.XMLHttpRequest){
+        xmlhttp=new XMLHttpRequest();
+    }
+    else{
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            //document.getElementById("content").innerHTML=xmlhttp.responseText;
+            var data=xmlhttp.responseText;
+            var items=JSON.parse(data).books;
+            document.getElementById("get_content").innerHTML=items[0].price;
+        }
+    }
+    xmlhttp.open("GET","http://localhost:3002"+`/get?name=english`,true);
+    xmlhttp.send();
+}
+function makePostRequest(){
+    var xmlhttp;
+    if(window.XMLHttpRequest){
+        xmlhttp=new XMLHttpRequest();
+    }
+    else{
+        xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange=function()
+    {
+        if (xmlhttp.readyState==4 && xmlhttp.status==200)
+        {
+            //document.getElementById("content").innerHTML=xmlhttp.responseText;
+            var data=xmlhttp.responseText;
+            // var items=JSON.parse(data).books;
+            document.getElementById("post_content").innerHTML=data.toString();
+        }
+    }
+    xmlhttp.open("POST","http://localhost:3002"+`/post`,{},true);
+    xmlhttp.send();
+}
+</script>

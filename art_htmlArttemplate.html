@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>arttemplate test</title>
+</head>
+<body>
+    <!-- html页面art-template模板引擎使用 -->
+    <script src="node_modules/art-template/lib/template-web.js"></script>
+    <script type="text/template" id="tpl">
+        <section>
+            <div id="info" style="width:50%;margin:0 auto; padding:20px; border:1px solid #ddd; background:#f4f4f4;">
+                <p style="font-size: 20px;font-weight: bold;text-align:center;border-bottom: 1px solid #eaeaea;">{{title}}</p>
+                <div style="font-size: 16px; line-height: 32px;">hello everyone,my name is {{name}}.<br/>
+                I'm {{}} years old.<br/>
+                I like {{each hobbies}} {{$value}} {{/each}}<br/></div>
+            </div>
+        </section>
+    </script>
+    <script>
+        var ret=template('tpl',{
+            title:'personal card',
+            name:'spcat',
+            age:'20',
+            hobbies:[
+                'write',
+                'dance',
+                'running'
+            ]
+        })
+        var div=document.createElement('div');
+        div.innerHTML=ret;
+        div.setAttribute('id','info');
+        document.body.append(div);
+    </script>
+</body>
+</html>
